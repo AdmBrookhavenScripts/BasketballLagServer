@@ -7,6 +7,8 @@ __________                __           __ ___.          .__  .__    .____       
         \/      \/     \/     \/    \/         \/     \/                    \/    \//_____/           \/     \/                 \/       
        Made by AdmBrookhavenScripts
 ]]
+
+if game.PlaceId == 4924922222 then
 getgenv().BasketballLagServer=false
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -338,3 +340,6 @@ HumConn = nil
 game.Players.LocalPlayer.Character.PropMaker.Parent = game.Players.LocalPlayer.Backpack
 end)
 return LMG2L["ScreenGui_1"], require;
+else
+game:GetService("StarterGui"):SetCore("SendNotification",{Title="Please wait",Text="Game not supported (Join in Brookhaven 🏡RP)",Duration=5})
+end
