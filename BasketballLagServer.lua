@@ -13,7 +13,10 @@ getgenv().BasketballLagServer=false
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local Player = Players.LocalPlayer
-local root = Player.Character:WaitForChild("HumanoidRootPart")
+local Root = Player.Character:WaitForChild("HumanoidRootPart")
+
+local Container = workspace:WaitForChild("WorkspaceCom")
+local TargetColor = BrickColor.new("CGA brown")
 
 local args = {
 	"PickingTools",
@@ -33,7 +36,7 @@ local args2 = {
 
 local args3 = {
     workspace:WaitForChild("Model"):WaitForChild("Sidewalk"),
-    root.Position
+    Root.Position
 }
 
 local argsf = {
@@ -255,7 +258,7 @@ task.wait(.5)
 for v = 1, 11 do
 local args3 = {
     workspace:WaitForChild("Model"):WaitForChild("Sidewalk"),
-    root.Position
+    Root.Position
 }
 game:GetService("Players").LocalPlayer.Character:WaitForChild("PropMaker"):WaitForChild("Tool_PropMake"):FireServer(unpack(args3))
 task.wait(1)
@@ -267,7 +270,7 @@ task.wait(.5)
 for v = 1,15 do
     local args3 = {
     workspace:WaitForChild("Model"):WaitForChild("Sidewalk"),
-    root.Position
+    Root.Position
 }
 game:GetService("Players").LocalPlayer.Character:WaitForChild("PropMaker"):WaitForChild("Tool_PropMake"):FireServer(unpack(args3))
     task.wait(1)
@@ -291,7 +294,7 @@ local RunService = game:GetService("RunService")
 
 local player = Players.LocalPlayer
 local char = player.Character or player.CharacterAdded:Wait()
-local root = char:WaitForChild("HumanoidRootPart")
+local Root = char:WaitForChild("HumanoidRootPart")
 
 local folder = workspace.WorkspaceCom["001_TrafficCones"]
 local modelName = "Prop"..player.Name
@@ -306,7 +309,7 @@ for _, model in ipairs(folder:GetChildren()) do
 
             for _, obj in ipairs(model:GetDescendants()) do
                 if obj:IsA("ClickDetector") and obj.Parent:IsA("BasePart") then
-                    local distance = (obj.Parent.Position - root.Position).Magnitude
+                    local distance = (obj.Parent.Position - Root.Position).Magnitude
 
                     if distance <= MaxDistance then
                         table.insert(ClickDetectors, obj)
@@ -332,6 +335,11 @@ BasketballLagConnection = RunService.PreSimulation:Connect(function()
             tool.ClickEvent:FireServer(unpack(argsf))
         end
     end
+    for _,v in ipairs(Container:GetDescendants()) do
+	    if v:IsA("BasePart") and v.Name == "Handle" and v.BrickColor == TargetColor then
+			v:Destroy()
+		end
+	end
 end)
 end
 Player.Character.HumanoidRootPart.Anchored=true
